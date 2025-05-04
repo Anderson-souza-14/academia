@@ -1,14 +1,15 @@
 <?php
+header('Content-Type: text/html; charset=utf-8');
 
 if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
 }
 
 if (!isset($_SESSION['id'])) {
-    header("location: login/login.php");  
+    header("location: acesso/acesso.php");  
     exit;
 }
-require 'login/protecao.php';
+require 'acesso/protecao.php';
 require 'conexao.php';
 
 ?>
@@ -31,7 +32,7 @@ require 'conexao.php';
           <div class="card">
             <div class="card-header">
               <h4> Lista de Alunos
-                <a href="login/logout.php" class="btn btn-danger float-end me-2">Sair</a>
+                <a href="acesso/logout.php" class="btn btn-danger float-end me-2">Sair</a>
                 <a href="usuario-create.php" class="btn btn-primary float-end me-2">Adicionar Aluno</a>
               </h4>
             </div>

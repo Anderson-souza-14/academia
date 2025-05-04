@@ -55,7 +55,7 @@ if (isset($_POST['update_aluno'])) {
 }
 
 if (isset($_POST['delete_aluno'])) {
-    $aluno_id = mysqli_real_escape_string($conexao, $_POST['delete_usuario']);
+    $aluno_id = mysqli_real_escape_string($conexao, $_POST['delete_aluno']);
     $sql = "DELETE FROM aluno WHERE ID_ALUNO='$aluno_id'";
     mysqli_query($conexao, $sql);
 

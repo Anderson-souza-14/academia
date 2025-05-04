@@ -4,10 +4,10 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
 }
 
 if (!isset($_SESSION['id'])) {
-    header("location: login/login.php");  
+    header("location: acesso/acesso.php");  
     exit;
 }    
-require 'login/protecao.php';
+require 'acesso/protecao.php';
 
 ?>
 <!doctype html>
