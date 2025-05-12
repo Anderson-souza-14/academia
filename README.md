@@ -22,7 +22,6 @@ Este projeto foi desenvolvido para facilitar o monitoramento e a gestão de cria
 
 ---
 
-## 📋 **Como Instalar e Executar o Projeto**
 ### **Pré-requisitos**
 - PHP 8.1 ou superior
 - MySQL
