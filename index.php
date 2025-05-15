@@ -53,11 +53,12 @@ require 'conexao.php';
                   <?php
                   $sql = 'SELECT * FROM aluno';
                   $alunos = mysqli_query($conexao, $sql);
+                  $contador = 1;
                   if (mysqli_num_rows($alunos) > 0) {
                     foreach ($alunos as $aluno) {
                   ?>
                   <tr>
-                    <td><?=$aluno['ID_ALUNO']?></td>
+                    <td><?=$contador++?></td>
                     <td><?=$aluno['NOME']?></td>
                     <td><?=$aluno['IDADE']?></td>
                     <td><?=$aluno['FAIXA']?></td>
