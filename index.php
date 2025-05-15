@@ -12,6 +12,15 @@ if (!isset($_SESSION['id'])) {
 require 'acesso/protecao.php';
 require 'conexao.php';
 
+$pesquisa = isset($_GET['pesquisa']) ? mysqli_real_escape_string($conexao, $_GET['pesquisa']) : '';
+
+$sql = "SELECT * FROM aluno";
+if (!empty($pesquisa)) {
+  $sql .= " WHERE NOME LIKE '%$pesquisa%'";
+}
+
+$alunos = mysqli_query($conexao, $sql);
+
 ?>
 
 <!doctype html>
@@ -34,6 +43,10 @@ require 'conexao.php';
               <h4> Lista de Alunos
                 <a href="acesso/logout.php" class="btn btn-danger float-end me-2">Sair</a>
                 <a href="usuario-create.php" class="btn btn-primary float-end me-2">Adicionar Aluno</a>
+                <form action="" method="GET" class="d-inline float-end me-2">
+                  <input type="text" name="pesquisa" id="pesquisa" class="form-control d-inline w-auto" placeholder="Pesquisar aluno" value="<?= isset($_GET['pesquisa']) ? htmlspecialchars($_GET['pesquisa']) : '' ?>">
+                  <button type="submit" class="btn btn-primary"><span class="bi-search"></span>Pesquisar</button>
+                </form>
               </h4>
             </div>
             <div class="card-body">
@@ -51,8 +64,6 @@ require 'conexao.php';
                 </thead>
                 <tbody>
                   <?php
-                  $sql = 'SELECT * FROM aluno';
-                  $alunos = mysqli_query($conexao, $sql);
                   $contador = 1;
                   if (mysqli_num_rows($alunos) > 0) {
                     foreach ($alunos as $aluno) {
@@ -66,7 +77,7 @@ require 'conexao.php';
                     <td><?=date('d/m/y', strtotime($aluno['ULTIMA_GRADUACAO']))?></td>
                     <td>
                       <a href="usuario-view.php?id=<?=$aluno['ID_ALUNO']?>"class="btn btn-secondary btn-sm"><span class="bi-eye-fill"></span>&nbsp;Vizualizar</a>
-                      <a href="usuario-edit.php?id=<?=$aluno['ID_ALUNO']?>"class="btn btn-success btn-sn"><span class="bi-pencil-fill"></span>&nbsp;Editar</a>
+                      <a href="usuario-edit.php?id=<?=$aluno['ID_ALUNO']?>"class="btn btn-success btn-sm"><span class="bi-pencil-fill"></span>&nbsp;Editar</a>
                       <form action="acoes.php" method="POST" class="d-inline">
                         <button onclick="return confirm('Tem certeza que deseja excluir?')" type="submit" name="delete_aluno" value="<?=$aluno['ID_ALUNO']?>" class="btn btn-danger btn-sm"><span class="bi-trash3-fill"></span>&nbsp;
                           Excluir
@@ -76,10 +87,10 @@ require 'conexao.php';
                   </tr>
                   <?php
                   }
-                } else {
+                  } else {
                   echo'<h5>Nenhum aluno encontrado</h5>';
-                }
-                ?>                
+                  }
+                  ?>                
                 </tbody>
               </table>
             </div>
